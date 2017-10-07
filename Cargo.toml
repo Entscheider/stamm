@@ -1,13 +1,13 @@
 [package]
 name = "stamm"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["Entscheider"]
 description = "A library for implementing custom decision trees and random forests"
 license = "Apache-2.0"
 categories = ["science"]
 repository = "https://github.com/Entscheider/stamm"
 documentation = "https://docs.rs/stamm"
-keywords = ["random forest", "decision tree"]
+keywords = ["randomforest", "decisiontree"]
 
 [dependencies]
 rand = "0.3"
