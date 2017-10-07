@@ -4,8 +4,10 @@ version = "0.1.0"
 authors = ["Entscheider"]
 description = "A library for implementing custom decision trees and random forests"
 license = "Apache-2.0"
-categories = ["Science"]
+categories = ["science"]
 repository = "https://github.com/Entscheider/stamm"
+documentation = "https://docs.rs/stamm"
+keywords = ["random forest", "decision tree"]
 
 [dependencies]
 rand = "0.3"

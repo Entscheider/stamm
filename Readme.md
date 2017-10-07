@@ -14,6 +14,10 @@ For serialization and deserialization [serde](https://github.com/serde-rs/serde)
 
 A numeric tree implementation using Stamm can be found in the library. An example using this numeric tree can be found in the `examples` directory.
 
+## Documentation
+
+See https://docs.rs/stamm
+
 ## Usage
 As always in Rust add Stamm as a dependency in Cargo.toml
 
