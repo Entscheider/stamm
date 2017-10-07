@@ -68,4 +68,4 @@ trained_forest.forest_predictions_parallel(&to_predict);
 You get a vector which contains the result of every tree the forest has. You can combine them as you wish. E.g. if you want to predict, you can take the average over all predictions to get a single result.
 
 ## License
-Stamm is distributed under the terms of the MIT license.
+Stamm is distributed under the terms of the Apache License, Version 2.0.
