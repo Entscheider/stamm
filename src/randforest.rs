@@ -142,7 +142,7 @@ where
     pub fn train_forest(
         self,
         train_set: &[(&LearnF::Data, &LearnF::Truth)],
-    ) -> Option<RandomForest<LearnF::LeafParam, LearnF>> {
+    ) -> Option<RandomForest<LearnF::LeafParam, LearnF::PredictFunction>> {
         let mut res = vec![];
         let mut rng = rand::thread_rng();
         let mut subset = Vec::with_capacity(self.size_of_subset_per_training);
@@ -161,6 +161,7 @@ where
 impl<LearnF> RandomForestLearnParam<LearnF>
 where
     LearnF: TreeLearnFunctions + Copy + Send + Sync,
+    LearnF::PredictFunction: Send + Sync,
     LearnF::Truth: Send + Sync,
     LearnF::LeafParam: Send + Sync,
     LearnF::Data: Send + Sync,
@@ -171,7 +172,7 @@ where
     pub fn train_forest_parallel(
         self,
         train_set: &[(&LearnF::Data, &LearnF::Truth)],
-    ) -> Option<RandomForest<LearnF::LeafParam, LearnF>> {
+    ) -> Option<RandomForest<LearnF::LeafParam, LearnF::PredictFunction>> {
 
         let subset_size = self.size_of_subset_per_training;
         let trees = (0..self.number_of_trees)

@@ -59,10 +59,11 @@ pub trait TreeFunction {
 /// Data of type `LeafParam` are saved in leaves.
 /// For generating feature where the best one should be chosen for training an interior node
 /// an iterator of type `ParamIter` is used.
-pub trait TreeLearnFunctions<PredictFunction: TreeFunction<Data=Self::Data, Param=Self::Param> = Self>: TreeFunction {
+pub trait TreeLearnFunctions: TreeFunction {
     type Truth;
     type LeafParam;
     type ParamIter: Iterator<Item=Self::Param>;
+    type PredictFunction: TreeFunction<Data=Self::Data, Param=Self::Param>;
 
 /// Computes the impurity of two sets for selecting the best feature (where impurity has the lowest value).
 /// The feature are described through `param`, the two sets are `set_l` and `set_r`.
@@ -111,7 +112,7 @@ pub trait TreeLearnFunctions<PredictFunction: TreeFunction<Data=Self::Data, Para
     /// As TreeLearnFunctions is also a TreeFunction self can be returned.
     /// However, there may be some reason to return another struct,
     /// e.g. if this TreeLearnFunctions contains a lot of data, which are not needed for using the learned tree.
-    fn as_predict_learn_func(self) -> PredictFunction;
+    fn as_predict_learn_func(self) -> Self::PredictFunction;
 }
 
 /// Struct for learning a decision tree
@@ -174,24 +175,22 @@ where
 impl TreeParameters {
     /// Trains a decision tree using the TreeLearnFunctions `learn_func`
     /// and the ground truth data `train_set`.
-    pub fn learn_tree<F, FF>(
+    pub fn learn_tree<F>(
         self,
         learn_func: F,
         train_set: &[(&F::Data, &F::Truth)],
-    ) -> DecisionTree<F::LeafParam, FF>
+    ) -> DecisionTree<F::LeafParam,F::PredictFunction>
     where
-        F: TreeLearnFunctions<FF>,
-        FF: TreeFunction<Data = F::Data, Param = F::Param>,
+        F: TreeLearnFunctions,
     {
         // For every subtree
-        fn learn_tree_intern<F, FF>(
+        fn learn_tree_intern<F>(
             depth: usize,
             subset: &[(&F::Data, &F::Truth)],
             learn_func: &F,
         ) -> Node<F::Param, F::LeafParam>
         where
-            F: TreeLearnFunctions<FF>,
-            FF: TreeFunction<Data = F::Data, Param = F::Param>,
+            F: TreeLearnFunctions,
         {
             use std::f64;
             assert!(subset.is_empty() == false);

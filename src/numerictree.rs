@@ -129,6 +129,7 @@ where
     type LeafParam = NumericLeafParam;
     type Truth = NumericTruth;
     type ParamIter = IntoIter<Self::Param>;
+    type PredictFunction = Self;
 
     /// Impurity of two sets use [ImpurityFunc](trait.ImpurityFunc.html).
     fn impurity(

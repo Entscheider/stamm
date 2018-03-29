@@ -1,6 +1,6 @@
 [package]
 name = "stamm"
-version = "0.1.1"
+version = "0.2.0"
 authors = ["Entscheider"]
 description = "A library for implementing custom decision trees and random forests"
 license = "Apache-2.0"
