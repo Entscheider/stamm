@@ -7,7 +7,7 @@ This library allows to specify the data and features of the nodes within a tree 
 Furthermore, this is also true for a random forest.
 
 To give an example, I've written a [hough forest](https://www.robots.ox.ac.uk/~vilem/cvpr2009.pdf) using this library a while ago.
-I'll try to publish the code for that later.
+I published the code [here](https://github.com/Entscheider/depthhead).
 
 This library can use [rayon](https://github.com/rayon-rs/rayon) for parallelize the training and prediction of a random forest.
 For serialization and deserialization [serde](https://github.com/serde-rs/serde) is used. So you can save the trees and random forests as json, yaml, MessagePack and many more (see [here](https://serde.rs/#data-formats)).
