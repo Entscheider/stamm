@@ -9,10 +9,10 @@ Furthermore, this is also true for a random forest.
 To give an example, I've written a [hough forest](https://www.robots.ox.ac.uk/~vilem/cvpr2009.pdf) using this library a while ago.
 I published the code [here](https://github.com/Entscheider/depthhead).
 
-This library can use [rayon](https://github.com/rayon-rs/rayon) for parallelize the training and prediction of a random forest.
-For serialization and deserialization [serde](https://github.com/serde-rs/serde) is used. So you can save the trees and random forests as json, yaml, MessagePack and many more (see [here](https://serde.rs/#data-formats)).
+This library can use [rayon](https://github.com/rayon-rs/rayon) to parallelize the training and prediction of a random forest.
+For serialization and deserialization [serde](https://github.com/serde-rs/serde) is used. So you can save the trees and random forests as json, yaml, MessagePack and in many more formats (see [here](https://serde.rs/#data-formats)).
 
-A numeric tree implementation using Stamm can be found in the library. An example using this numeric tree can be found in the `examples` directory.
+A numeric tree implementation using Stamm can be found in the library. An example using this numeric tree is discoverable in the `examples` directory.
 
 ## Documentation
 
@@ -46,14 +46,17 @@ let learned_tree = learner.learn_tree(learn_function, &trainings_set);
 and use your learned tree like this 
 
 ```rust
-let to_predict = some_awesome_data_top_redict;
+let to_predict = some_awesome_data_to_predict;
 let result = learned_tree.predict(&to_predict);
 ```
 
 Training a random forest is straight forward:
 
 ```rust
-let forest_learner = RandomForestLearnParam::new(10 /* number of trees */, 50 /* size of the trainings subset used for a tree */, learn_function /* see above */);
+let forest_learner = RandomForestLearnParam::new(
+    10 /* number of trees */,
+    50 /* size of the trainings subset used for a tree */,
+    learn_function /* see above */);
 let trained_forest = forest_learner.train_forest(&trainings_set).unwrap();
 // Or if the types you are using support it - train the forest parallel
 let trained_forest = forest_learner.train_forest_parallel(&trainings_set).unwrap();
@@ -69,7 +72,7 @@ let result_list =
 trained_forest.forest_predictions_parallel(&to_predict);
 ```
 
-You get a vector which contains the result of every tree the forest has. You can combine them as you wish. E.g. if you want to predict, you can take the average over all predictions to get a single result.
+You get a vector which contains the result of every tree the forest has. You can combine them as you wish. E.g. if you want to predict, you can compute the average over all predictions to obtain a single result.
 
 ## License
 Stamm is distributed under the terms of the Apache License, Version 2.0.
